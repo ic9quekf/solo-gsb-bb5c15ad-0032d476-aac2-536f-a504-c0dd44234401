@@ -1,0 +1,17 @@
+{
+  "name": "continuity-checker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "短片场记非线性拍摄连续性校验 Web 应用",
+  "scripts": {
+    "install:all": "npm install --workspaces --include-workspace-root",
+    "dev:server": "npm --workspace server run dev",
+    "dev:client": "npm --workspace client run dev",
+    "build": "npm --workspace server run build && npm --workspace client run build",
+    "start": "npm --workspace server run start"
+  },
+  "workspaces": [
+    "server",
+    "client"
+  ]
+}

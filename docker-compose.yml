@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    image: continuity-checker:latest
+    container_name: continuity-checker
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      PORT: 3000
+      DB_PATH: /app/data/continuity.sqlite
+      SEED_SAMPLE: "${SEED_SAMPLE:-1}"
+    volumes:
+      - continuity-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  continuity-data:
